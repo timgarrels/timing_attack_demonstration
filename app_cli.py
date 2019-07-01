@@ -3,17 +3,20 @@ import sys
 import app_security
 
 
-PASSWORD_ALPHABET = list("0123456789")
-PASSWORD_LENGTH = 3
+PASSWORD_ALPHABET = list("0123456789" + "abcdefghijklmnopqrstuvwxyz" + "abcdefghijklmnopqrstuvwxyz".upper())
+PASSWORD_LENGTH = 8
 
 
 def reset_password():
     print("Resetting password...")
+    print("- Alphabet:", PASSWORD_ALPHABET)
+    print("- Length:", PASSWORD_LENGTH)
+
     c_password, h_password = app_security.create_password(PASSWORD_LENGTH, PASSWORD_ALPHABET)
     with open("pwd", "w") as f:
         f.write(h_password)
     print("Reset done! Last digit: {last_digit}".format(last_digit=c_password[-1:]))
-    print("TODO:", c_password)
+    # print("TODO:", c_password)
 
 def login():
     print("Trying to login...")

