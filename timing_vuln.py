@@ -1,7 +1,7 @@
 import sys
-import time
 
-SECRET = "12345678"
+# Hardcoded Passphrase
+PASSWORD = "12345678"
 
 
 def insecure_string_compare(string1, string2):
@@ -11,13 +11,14 @@ def insecure_string_compare(string1, string2):
     return True
 
 def main():
+    # Input Check
     if len(sys.argv) != 2:
         print("Usage: python3 timing_vuln.py [password]")
 
-    password = sys.argv[1]
-
-    if insecure_string_compare(SECRET, password):
+    # Sensitive Information
+    if insecure_string_compare(SECRET, sys.argv[1]):
         print("Access granted")
+        print("This is just a mock up")
     else:
         print("Access denied")
 
