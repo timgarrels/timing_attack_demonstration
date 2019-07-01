@@ -6,7 +6,7 @@ PASSWORD_ALPHABET = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b',
 PASSWORD_LENGTH = 8
 COMMAND = "python3 app_cli.py login"
 
-AVERAGE_OF = 1
+AVERAGE_OF = 2
 
 
 def time_for_password(password):

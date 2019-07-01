@@ -26,8 +26,10 @@ def login():
         password = f.read()
 
     if app_security.password_compare(password, sys.argv[2]):
+        print("**************")
         print("Access granted")
-        print("This is just a demo")
+        print("**************")
+        print("Let me tell you a secret: This is the end of the demo")
     else:
         print("Access denied")
 
